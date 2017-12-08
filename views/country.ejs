@@ -1,0 +1,61 @@
+    <% include partials/header %>
+  
+    <div class="container" style="text-align:center;">
+              <!-- Default panel contents -->
+              <!--<div class="panel-body">-->
+              <!--  <p>...</p>-->
+              <!--</div>-->
+            
+              <!-- Table -->
+              <header class="jumbotron" style="background-color:white;">
+            <div class="panel panel-info">
+              <!-- Default panel contents -->
+              <div class="panel-heading">
+                  <h1 style="font-family: 'Permanent Marker', cursive;"><span><img src="<%= results["flag"]%>" alt="..." style="height:60px;width:100px;margin-right:10px;"></span>Welcome to <%= results["name"] %></h1>
+              </div>
+              <% console.log(properties) %>
+              <table class="table table-bordered table-striped table-hover">
+                  <% for(var i in properties) { %>
+                      <tr>
+                        <td><%= properties[i] %></td>
+                        <% console.log(i) %>
+                        <% if(i == "currencies" || i=="languages"){ %>
+                            <td>
+                             <% 
+                             results[i].forEach(function(element){
+                                 var res="";
+                                 res+="{";
+                                 for(key in element){
+                                     res+="'"+key+": "+element[key]+"' ";
+                                 }
+                                 res+="} "; %>
+                                 <%= res %>
+                                 <br />
+                            <% });
+                             %>
+                             </td>
+                       <% } else if(i == "translations"){ %>
+                       <td>
+                           <% 
+                           var cnt = 0;
+                           for(key in results[i]){ 
+                           cnt++;
+                           %>
+                               <%= key +": "+results[i][key] %>
+                               <% if(cnt == 3){%>
+                               <br />
+                               <% cnt = 0;}%>
+                         <%  } %>
+                          </td> 
+                        <% } else {%>
+                        <td><%= results[i] %></td>
+                        <% } %>
+                    </tr>
+                  <% } %>
+              </table>
+            </div>
+        </header>
+    </div>
+    
+    
+    <% include partials/footer %>
